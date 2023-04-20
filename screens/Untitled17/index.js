@@ -1,16 +1,22 @@
-import React from 'react';
+import { useNavigation } from "@react-navigation/native";
+import { Pressable } from "react-native";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const SubscriptionScreen = () => {
+  const navigation = useNavigation();
   return <View style={styles.container}>
       <Image source={require('../assets/subscription.png')} style={styles.image} />
-      <Text style={styles.title}>Subscribe to Premium</Text>
+      <Pressable onPress={() => {
+      navigation.navigate("Untitled21");
+    }}><Text style={styles.title}>Subscribe to Premium</Text></Pressable>
       <Text style={styles.description}>
         Get access to exclusive content and features by subscribing to our
         premium plan.
       </Text>
       <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Subscribe Now</Text>
+        <Pressable onPress={() => {
+        navigation.navigate("Untitled22");
+      }}><Text style={styles.buttonText}>Subscribe Now</Text></Pressable>
       </TouchableOpacity>
     </View>;
 };

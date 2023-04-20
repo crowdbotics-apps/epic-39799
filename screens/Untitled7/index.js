@@ -36,7 +36,9 @@ const SocialLoginScreen = () => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Login</Text>
+        <Pressable onPress={() => {
+        navigation.navigate("Untitled21");
+      }}><Text style={styles.loginButtonText}>Login</Text></Pressable>
       </TouchableOpacity>
       <View style={styles.socialLoginContainer}>
         <TouchableOpacity style={styles.socialLoginButton} onPress={handleGoogleLogin}>
