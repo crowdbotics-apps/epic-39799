@@ -1,11 +1,15 @@
-import React from 'react';
+import { useNavigation } from "@react-navigation/native";
+import { Pressable } from "react-native";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const SocialSignUpScreen = () => {
+  const navigation = useNavigation();
   return <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image source={require('../assets/logo.png')} style={styles.logo} />
-        <Text style={styles.title}>Sign up with</Text>
+        <Pressable onPress={() => {
+        navigation.navigate("Untitled11");
+      }}><Text style={styles.title}>Sign up with</Text></Pressable>
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button}>
