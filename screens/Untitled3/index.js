@@ -10,8 +10,12 @@ const SplashScreen = () => {
       <Pressable onPress={() => {
       navigation.navigate("Untitled5");
     }}><View style={styles.container}>
-        <Text style={styles.title}>My App</Text>
-        <Text style={styles.subtitle}>Loading...</Text>
+        <Pressable onPress={() => {
+          navigation.navigate("Untitled6");
+        }}><Text style={styles.title}>My App</Text></Pressable>
+        <Pressable onPress={() => {
+          navigation.navigate("Untitled7");
+        }}><Text style={styles.subtitle}>Loading...</Text></Pressable>
       </View></Pressable>
     </ImageBackground>;
 };
