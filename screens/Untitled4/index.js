@@ -14,7 +14,9 @@ const LandingPage = () => {
           <Pressable onPress={() => {
             navigation.navigate("Untitled7");
           }}><Text style={styles.title}>Welcome to Our Website</Text></Pressable>
-          <Text style={styles.subtitle}>Discover the Best Deals Online</Text>
+          <Pressable onPress={() => {
+            navigation.navigate("Untitled15");
+          }}><Text style={styles.subtitle}>Discover the Best Deals Online</Text></Pressable>
         </View></Pressable>
       </ImageBackground>
     </View>;
