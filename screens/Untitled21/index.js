@@ -99,14 +99,20 @@ const PreviousGames = () => {
     navigation.navigate("Untitled24");
   }}><View style={styles.container}>
       <View style={styles.gamesContainer}>
-        <Text style={styles.gamesTitle}>Previous Games</Text>
+        <Pressable onPress={() => {
+          navigation.navigate("Untitled39");
+        }}><Text style={styles.gamesTitle}>My profile </Text></Pressable>
         {games.map(game => <View key={game.id} style={styles.gameContainer}>
             <View style={styles.playersContainer}>
-              {game.players.map(player => <Image key={player.id} source={player.profilePic} style={styles.playerProfilePic} />)}
+              {game.players.map(player => <Pressable onPress={() => {
+              navigation.navigate("Untitled35");
+            }}><Image key={player.id} source={player.profilePic} style={styles.playerProfilePic} /></Pressable>)}
             </View>
             <View style={styles.gameDetailsContainer}>
               <Text style={styles.gameName}>{game.name}</Text>
-              <Text style={styles.gameDateTime}>{`${game.date} at ${game.time}`}</Text>
+              <Pressable onPress={() => {
+              navigation.navigate("Untitled34");
+            }}><Text style={styles.gameDateTime}>{`${game.date} at ${game.time}`}</Text></Pressable>
             </View>
           </View>)}
       </View>
@@ -132,7 +138,12 @@ const PreviousGames = () => {
       <Pressable onPress={() => {
           navigation.navigate("Untitled23");
         }}><Text style={styles.AKwYuMol}>Search Screen</Text></Pressable></View>
-    <Text style={styles.hoobPeFd}>View Characters Screen</Text></View></Pressable>;
+    <Text style={styles.hoobPeFd}>View Characters Screen</Text><Pressable onPress={() => {
+        navigation.navigate("Untitled41");
+      }}><Text style={styles.BqJmiZdm}>Lorem ipsum…</Text></Pressable><Pressable onPress={() => {
+        navigation.navigate("Untitled31");
+      }}><Text style={styles.FgYWoxpw}>Chat
+      </Text></Pressable></View></Pressable>;
 };
 
 const styles = StyleSheet.create({
@@ -231,6 +242,20 @@ const styles = StyleSheet.create({
   AKwYuMol: {
     width: 98,
     height: 26,
+    lineHeight: 14,
+    fontSize: 14,
+    borderRadius: 0
+  },
+  BqJmiZdm: {
+    width: 100,
+    height: 97,
+    lineHeight: 14,
+    fontSize: 14,
+    borderRadius: 0
+  },
+  FgYWoxpw: {
+    width: 100,
+    height: 50,
     lineHeight: 14,
     fontSize: 14,
     borderRadius: 0

@@ -14,7 +14,9 @@ const ChessGameplayScreen = () => {
           <Text style={styles.playerName}>Player 1</Text>
         </View>
         <View style={styles.player}>
-          <Image source={require('../assets/player2.png')} style={styles.playerImage} />
+          <Pressable onPress={() => {
+          navigation.navigate("Untitled33");
+        }}><Image source={require('../assets/player2.png')} style={styles.playerImage} /></Pressable>
           <Text style={styles.playerName}>Player 2</Text>
         </View>
         <View style={styles.player}>
