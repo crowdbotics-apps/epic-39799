@@ -1,7 +1,9 @@
-import React from 'react';
+import { useNavigation } from "@react-navigation/native";
+import { Pressable } from "react-native";
 import { View, Text, StyleSheet, Image } from 'react-native';
 
 const ProfileScreen = () => {
+  const navigation = useNavigation();
   return <View style={styles.container}>
       <View style={styles.header}>
         <Image source={{
@@ -11,7 +13,9 @@ const ProfileScreen = () => {
         <Text style={styles.email}>johndoe@example.com</Text>
       </View>
       <View style={styles.body}>
-        <Text style={styles.bodyText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, sapien vel bibendum bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel bibendum bibendum, velit sapien bibendum sapien, vel bibendum sapien.</Text>
+        <Pressable onPress={() => {
+        navigation.navigate("Untitled42");
+      }}><Text style={styles.bodyText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, sapien vel bibendum bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel bibendum bibendum, velit sapien bibendum sapien, vel bibendum sapien.</Text></Pressable>
       </View>
     </View>;
 };
