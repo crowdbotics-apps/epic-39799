@@ -111,7 +111,9 @@ const PreviousGames = () => {
           </View>)}
       </View>
       <TouchableOpacity style={styles.shareButton}>
-        <Text style={styles.shareButtonText}>Share</Text>
+        <Pressable onPress={() => {
+          navigation.navigate("Untitled25");
+        }}><Text style={styles.shareButtonText}>Share</Text></Pressable>
       </TouchableOpacity>
       <View style={styles.howToPlayContainer}>
         
@@ -119,7 +121,9 @@ const PreviousGames = () => {
         
       </View>
       <TouchableOpacity style={styles.newGameButton}>
-        <Text style={styles.newGameButtonText}>Start a New Game</Text>
+        <Pressable onPress={() => {
+          navigation.navigate("Untitled27");
+        }}><Text style={styles.newGameButtonText}>Start a New Game</Text></Pressable>
       </TouchableOpacity>
       <View style={styles.bottomNavBar}>
         {
