@@ -1,106 +1,181 @@
-import React from "react";
-import { Text, StyleSheet, Dimensions, View, TouchableOpacity } from "react-native";
-
-const deviceWidth = Dimensions.get("window").width;
+import * as React from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  TouchableHighlight
+} from "react-native";
 
 const pressed = () => {
   console.log("pressed");
 };
 
-const LoginScreen = (params) => {
+const ForgotPassword = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.topSection}>
-        <Text style={styles.headingTxt}>Sign In</Text>
+      <View style={styles.topHead}>
+        <Text style={styles.mainHeading}>Forgot {"\n"} password</Text>
       </View>
-      <View style={styles.bottomSection}>
-        <Text style={styles.bottomSectionText}>Welcome Back!</Text>
-        <Text style={styles.bottomSectionDescription}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor
-        </Text>
-        <Button title={"SignUp"}></Button>
-        <Button
-          title={"Login"}
-          btnStyle={styles.loginBtnStyle}
-          textStyle={styles.loginBtnText}
-          onPress={pressed}
-        ></Button>
+
+      <View style={styles.inputSection}>
+        <View style={styles.newPassword}>
+          <Text style={styles.newPassword}>
+            Set new password for your account.
+          </Text>
+        </View>
+        <View style={styles.passwordInput}>
+          <Text style={styles.newPasswordLabel}>Password</Text>
+          <Input placeholder="Enter"></Input>
+        </View>
+        <View style={styles.confirmInput}>
+          <Text style={styles.newPasswordLabel}>Confirm Password</Text>
+          <Input placeholder="Enter"></Input>
+        </View>
+      </View>
+      <View style={styles.resetButton}>
+        <Button onPress={pressed} style={styles.resetBtn}>
+          Reset password
+        </Button>
+      </View>
+      <View style={styles.back}>
+        <Text style={styles.backText}>Back</Text>
       </View>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
+  topHead: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center"
+  },
+  mainHeading: {
+    fontSize: 30,
+    fontWeight: "bold",
+    textAlign: "center"
+  },
   container: {
-    margin: 20,
-    flex: 1,
-    justifyContent: "space-around"
+    padding: 20,
+    backgroundColor: "#FFF",
+    height: "100%"
   },
-  topSection: {
-    flex: 1,
-    alignItems: "center"
+  inputSection: {
+    paddingTop: 40
   },
-  bottomSection: {
-    flex: 1,
+  newPassword: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
     justifyContent: "center"
   },
-  bottomSectionText: {
-    alignSelf: "center",
-    fontSize: 24,
-    fontWeight: "bold",
-    padding: 2,
-    marginVertical: 12
+  passwordInput: {
+    marginTop: 50
   },
-  bottomSectionDescription: {
-    alignSelf: "center",
-    fontSize: 14,
-    fontWeight: "400",
-    maxWidth: deviceWidth / 1.4,
-    textAlign: "center",
-    padding: 5,
-    marginVertical: 12
+  newPasswordLabel: {
+    paddingLeft: 15,
+    paddingBottom: 7
   },
-  headingTxt: {
-    fontWeight: "bold",
-    color: "black",
-    fontSize: 28
+  confirmInput: {
+    paddingTop: 10
   },
-  loginBtnStyle: {
-    backgroundColor: "white",
-    borderColor: "black",
-    borderWidth: 1
+  resetButton: {
+    paddingTop: 20,
+    paddingLeft: 30,
+    paddingRight: 30
   },
-  loginBtnText: {
-    color: "black"
+  back: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 30
+  },
+  backText: {
+    fontWeight: "600",
+    fontSize: 20
   }
 });
 
-const Button = ({ title, btnStyle, textStyle, onPress }) => {
+export default ForgotPassword;
+
+const Button = (props) => {
   return (
-    <TouchableOpacity style={[btnStyles.btn, btnStyle]} onPress={onPress}>
-      <Text style={[btnStyles.btnText, textStyle]}>{title}</Text>
-    </TouchableOpacity>
+    <TouchableHighlight onPress={props.onPress} underlayColor="#DDDDDD">
+      <View
+        style={[
+          btnStyles.button,
+          {
+            backgroundColor: props.backgroundColor
+              ? props.backgroundColor
+              : "#000000",
+            height: props.height ? props.height : 49,
+            borderWidth: props.borderWidth ? props.borderWidth : 0,
+            borderColor: props.borderColor ? props.borderColor : "#000000"
+          }
+        ]}
+      >
+        <Text
+          style={[
+            btnStyles.text,
+            { color: props.color ? props.color : "#ffffff" }
+          ]}
+        >
+          {props.children}
+        </Text>
+      </View>
+    </TouchableHighlight>
   );
 };
 
 const btnStyles = StyleSheet.create({
-  btn: {
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-    backgroundColor: "black",
-    borderRadius: 6,
-    alignItems: "center",
-    alignSelf: "center",
+  button: {
+    display: "flex",
     justifyContent: "center",
-    margin: 5,
-    width: deviceWidth - 80,
-    minHeight: 45,
-    marginVertical: 12
+    alignItems: "center",
+    borderRadius: 10
   },
-  btnText: {
-    color: "white"
+  text: {
+    fontWeight: "bold",
+    fontSize: 15
   }
 });
 
-export default LoginScreen;
+const Input = (props) => {
+  return (
+    <View>
+      <TextInput
+        style={inputStyles.input}
+        placeholder={props.placeholder}
+        value={props.value}
+        onChangeText={(num) => props.setValue(num)}
+        placeholderTextColor="#ddd"
+        editable={props.editable !== false}
+      />
+      {props.errorText
+        ? (
+        <Text style={inputStyles.error}>{props.errorText}</Text>
+          )
+        : null}
+    </View>
+  );
+};
+
+const inputStyles = StyleSheet.create({
+  input: {
+    backgroundColor: "#fff",
+    height: 53,
+    borderColor: "#C4C4C4",
+    color: "#000",
+    borderRadius: 10,
+    fontSize: 14,
+    borderWidth: 1,
+    paddingHorizontal: 15
+  },
+  error: {
+    fontSize: 13,
+    color: "#FA060D",
+    paddingTop: 8
+  }
+});
