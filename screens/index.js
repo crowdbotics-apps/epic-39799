@@ -1,155 +1,106 @@
-import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, View, Image, ScrollView } from "react-native";
+import React from "react";
+import { Text, StyleSheet, Dimensions, View, TouchableOpacity } from "react-native";
 
-const NotificationsScreen = (params) => {
-  const [notifications, setNotifications] = useState([]);
-  useEffect(() => {
-    setNotifications([
-      {
-        id: 1,
-        type: "Booking Successful",
-        details: "You have booked Kreamy Corner",
-        time: "5 min ago",
-        read: false
-      },
-      {
-        id: 2,
-        type: "Booking Successful",
-        details: "You have booked Kreamy Corner",
-        time: "5 min ago",
-        read: false
-      },
-      {
-        id: 3,
-        type: "Event Reminder",
-        details: "Your next event will be held after 2 hours.",
-        time: "5 min ago",
-        read: true
-      },
-      {
-        id: 4,
-        type: "Event Reminder",
-        details: "Your next event will be held after 2 hours.",
-        time: "5 min ago",
-        read: true
-      },
-      {
-        id: 5,
-        type: "Event Reminder",
-        details: "Your next event will be held after 2 hours.",
-        time: "5 min ago",
-        read: true
-      },
-      {
-        id: 6,
-        type: "Event Reminder",
-        details: "Your next event will be held after 2 hours.",
-        time: "5 min ago",
-        read: true
-      },
-      {
-        id: 7,
-        type: "Event Reminder",
-        details: "Your next event will be held after 2 hours.",
-        time: "5 min ago",
-        read: true
-      }
-    ]);
-  }, []);
+const deviceWidth = Dimensions.get("window").width;
+
+const pressed = () => {
+  console.log("pressed");
+};
+
+const LoginScreen = (params) => {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerTextContainer}>
-          <Text style={styles.headerText}>Select all</Text>
-          <Text style={styles.headerText}>Mark all</Text>
-        </View>
+      <View style={styles.topSection}>
+        <Text style={styles.headingTxt}>Sign In</Text>
       </View>
-      <View style={styles.notificationsContainer}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {notifications.map((notification, index) => (
-            <NotificationTile notification={notification} key={index} />
-          ))}
-        </ScrollView>
-      </View>
-    </View>
-  );
-};
-
-const NotificationTile = ({ notification }) => {
-  const textColor = {
-    color: notification.read ? "#8E8E8E" : "#000"
-  };
-  return (
-    <View style={notificationTileStyles.container}>
-      <View style={notificationTileStyles.notificationTextContainer}>
-        <Text style={[notificationTileStyles.mainText, textColor]}>
-          {notification.type}
+      <View style={styles.bottomSection}>
+        <Text style={styles.bottomSectionText}>Welcome Back!</Text>
+        <Text style={styles.bottomSectionDescription}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor
         </Text>
-        <Text style={textColor}>{notification.details}</Text>
-      </View>
-      <View style={notificationTileStyles.timeContainer}>
-        <Text style={textColor}>{notification.time}</Text>
-        <View>
-          {!notification.read
-            ? (
-            <Image source={require("./assets/readIcon.png")} />
-              )
-            : null}
-        </View>
+        <Button title={"SignUp"}></Button>
+        <Button
+          title={"Login"}
+          btnStyle={styles.loginBtnStyle}
+          textStyle={styles.loginBtnText}
+          onPress={pressed}
+        ></Button>
       </View>
     </View>
   );
 };
 
-const notificationTileStyles = StyleSheet.create({
-  container: {
-    borderBottomColor: "#ccc",
-    borderBottomWidth: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    height: 100,
-    alignItems: "center"
-  },
-  notificationTextContainer: {
-    flexDirection: "column",
-    height: "80%",
-    justifyContent: "space-around" // alignItems: "center"
-  },
-  mainText: {
-    fontSize: 18,
-    marginVertical: 10
-  },
-  timeContainer: {
-    height: "80%",
-    justifyContent: "space-around",
-    alignItems: "center"
-  }
-});
 const styles = StyleSheet.create({
   container: {
+    margin: 20,
     flex: 1,
-    backgroundColor: "#fff"
+    justifyContent: "space-around"
   },
-  header: {
+  topSection: {
     flex: 1,
-    paddingVertical: 10,
-    justifyContent: "space-around",
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc"
+    alignItems: "center"
   },
-  headerTextContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 20
+  bottomSection: {
+    flex: 1,
+    justifyContent: "center"
   },
-  headerText: {
-    fontSize: 18,
-    fontWeight: "bold"
+  bottomSectionText: {
+    alignSelf: "center",
+    fontSize: 24,
+    fontWeight: "bold",
+    padding: 2,
+    marginVertical: 12
   },
-  notificationsContainer: {
-    flex: 12,
-    backgroundColor: "#fff",
-    paddingHorizontal: 20
+  bottomSectionDescription: {
+    alignSelf: "center",
+    fontSize: 14,
+    fontWeight: "400",
+    maxWidth: deviceWidth / 1.4,
+    textAlign: "center",
+    padding: 5,
+    marginVertical: 12
+  },
+  headingTxt: {
+    fontWeight: "bold",
+    color: "black",
+    fontSize: 28
+  },
+  loginBtnStyle: {
+    backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 1
+  },
+  loginBtnText: {
+    color: "black"
   }
 });
-export default NotificationsScreen;
+
+const Button = ({ title, btnStyle, textStyle, onPress }) => {
+  return (
+    <TouchableOpacity style={[btnStyles.btn, btnStyle]} onPress={onPress}>
+      <Text style={[btnStyles.btnText, textStyle]}>{title}</Text>
+    </TouchableOpacity>
+  );
+};
+
+const btnStyles = StyleSheet.create({
+  btn: {
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    backgroundColor: "black",
+    borderRadius: 6,
+    alignItems: "center",
+    alignSelf: "center",
+    justifyContent: "center",
+    margin: 5,
+    width: deviceWidth - 80,
+    minHeight: 45,
+    marginVertical: 12
+  },
+  btnText: {
+    color: "white"
+  }
+});
+
+export default LoginScreen;
