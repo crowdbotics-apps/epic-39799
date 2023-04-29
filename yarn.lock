@@ -1035,7 +1035,7 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@modules/social-login@file:./modules/social-login/":
+"@modules/social-login@file:./modules/social-login":
   version "1.0.0"
   dependencies:
     "@invertase/react-native-apple-authentication" "^2.1.0"
@@ -1051,6 +1051,12 @@
   version "1.0.0"
 
 "@modules/user-profile@file:./modules/user-profile":
+  version "1.0.0"
+  dependencies:
+    "@react-navigation/native" "^5.9.2"
+    react-native-elements "^2.3.2"
+
+"@modules/user-profile@file:./modules/user-profile/":
   version "1.0.0"
   dependencies:
     "@react-navigation/native" "^5.9.2"
