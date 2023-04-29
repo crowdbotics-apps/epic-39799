@@ -1,125 +1,155 @@
-import React from "react";
-import { Text, View, StyleSheet, TouchableHighlight, TextInput } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, StyleSheet, View, Image, ScrollView } from "react-native";
 
-const SupportSendFeedbackScreen = () => {
+const NotificationsScreen = (params) => {
+  const [notifications, setNotifications] = useState([]);
+  useEffect(() => {
+    setNotifications([
+      {
+        id: 1,
+        type: "Booking Successful",
+        details: "You have booked Kreamy Corner",
+        time: "5 min ago",
+        read: false
+      },
+      {
+        id: 2,
+        type: "Booking Successful",
+        details: "You have booked Kreamy Corner",
+        time: "5 min ago",
+        read: false
+      },
+      {
+        id: 3,
+        type: "Event Reminder",
+        details: "Your next event will be held after 2 hours.",
+        time: "5 min ago",
+        read: true
+      },
+      {
+        id: 4,
+        type: "Event Reminder",
+        details: "Your next event will be held after 2 hours.",
+        time: "5 min ago",
+        read: true
+      },
+      {
+        id: 5,
+        type: "Event Reminder",
+        details: "Your next event will be held after 2 hours.",
+        time: "5 min ago",
+        read: true
+      },
+      {
+        id: 6,
+        type: "Event Reminder",
+        details: "Your next event will be held after 2 hours.",
+        time: "5 min ago",
+        read: true
+      },
+      {
+        id: 7,
+        type: "Event Reminder",
+        details: "Your next event will be held after 2 hours.",
+        time: "5 min ago",
+        read: true
+      }
+    ]);
+  }, []);
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.labelText}>
-          Email address
-        </Text>
-        <Input
-          placeholder='Enter'
-        />
+      <View style={styles.header}>
+        <View style={styles.headerTextContainer}>
+          <Text style={styles.headerText}>Select all</Text>
+          <Text style={styles.headerText}>Mark all</Text>
+        </View>
       </View>
-      <View style={styles.Textarea}>
-        <Text style={styles.labelText}>
-          Message
-        </Text>
-        <TextInput style={styles.TextAreaInput}
-          numberOfLines={5}
-          multiline={true}
-          placeholder='Enter'
-          placeholderTextColor='#ddd'
-        />
-      </View>
-
-      <View style={styles.SubmitBtn}>
-        <Button>Submit</Button>
+      <View style={styles.notificationsContainer}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {notifications.map((notification, index) => (
+            <NotificationTile notification={notification} key={index} />
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
 };
 
+const NotificationTile = ({ notification }) => {
+  const textColor = {
+    color: notification.read ? "#8E8E8E" : "#000"
+  };
+  return (
+    <View style={notificationTileStyles.container}>
+      <View style={notificationTileStyles.notificationTextContainer}>
+        <Text style={[notificationTileStyles.mainText, textColor]}>
+          {notification.type}
+        </Text>
+        <Text style={textColor}>{notification.details}</Text>
+      </View>
+      <View style={notificationTileStyles.timeContainer}>
+        <Text style={textColor}>{notification.time}</Text>
+        <View>
+          {!notification.read
+            ? (
+            <Image source={require("./assets/readIcon.png")} />
+              )
+            : null}
+        </View>
+      </View>
+    </View>
+  );
+};
+
+const notificationTileStyles = StyleSheet.create({
+  container: {
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: 100,
+    alignItems: "center"
+  },
+  notificationTextContainer: {
+    flexDirection: "column",
+    height: "80%",
+    justifyContent: "space-around" // alignItems: "center"
+  },
+  mainText: {
+    fontSize: 18,
+    marginVertical: 10
+  },
+  timeContainer: {
+    height: "80%",
+    justifyContent: "space-around",
+    alignItems: "center"
+  }
+});
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
     flex: 1,
-    height: "100%",
-    backgroundColor: "white"
+    backgroundColor: "#fff"
   },
-  labelText: {
-    fontSize: 14,
-    fontWeight: "400",
-    marginBottom: 10,
-    marginLeft: 15
+  header: {
+    flex: 1,
+    paddingVertical: 10,
+    justifyContent: "space-around",
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc"
   },
-  Textarea: {
-    marginTop: 30
+  headerTextContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20
   },
-  TextAreaInput: {
-    height: 160,
-    borderWidth: 1,
-    borderColor: "#C4C4C4",
-    borderRadius: 10,
-    textAlignVertical: "top",
-    padding: 10
+  headerText: {
+    fontSize: 18,
+    fontWeight: "bold"
   },
-  SubmitBtn: {
-    marginTop: 100
-  }
-});
-
-export default SupportSendFeedbackScreen;
-
-const Button = (props) => {
-  return (
-    <TouchableHighlight onPress={props.onPress} underlayColor='#DDDDDD'>
-      <View style={[btnStyles.button, {
-        backgroundColor: props.backgroundColor ? props.backgroundColor : "#000000",
-        height: props.height ? props.height : 49,
-        borderWidth: props.borderWidth ? props.borderWidth : 0,
-        borderColor: props.borderColor ? props.borderColor : "#000000"
-      }]}>
-        <Text style={[btnStyles.text, { color: props.color ? props.color : "#ffffff" }]}>{props.children}</Text>
-      </View>
-    </TouchableHighlight>
-  );
-};
-
-const btnStyles = StyleSheet.create({
-  button: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10
-  },
-  text: {
-    fontWeight: "bold",
-    fontSize: 15
-  }
-});
-
-const Input = (props) => {
-  return (
-    <View>
-      <TextInput
-        style={textStyles.input}
-        placeholder={props.placeholder}
-        value={props.value}
-        onChangeText={(num) => props.setValue(num)}
-        placeholderTextColor='#ddd'
-        editable={props.editable !== false}
-      />
-      {props.errorText ? <Text style={textStyles.error}>{props.errorText}</Text> : null}
-    </View>
-  );
-};
-
-const textStyles = StyleSheet.create({
-  input: {
+  notificationsContainer: {
+    flex: 12,
     backgroundColor: "#fff",
-    height: 53,
-    borderColor: "#C4C4C4",
-    color: "#000",
-    borderRadius: 10,
-    fontSize: 14,
-    borderWidth: 1,
-    paddingHorizontal: 10
-  },
-  error: {
-    fontSize: 13,
-    color: "#FA060D",
-    paddingTop: 8
+    paddingHorizontal: 20
   }
 });
+export default NotificationsScreen;
