@@ -1,130 +1,117 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
   View,
-  Image,
   ScrollView,
-  TextInput
+  SafeAreaView,
+  Image,
+  TextInput,
+  Pressable
 } from "react-native";
 
-const DirectMessagesScreen = (params) => {
-  const [message, setMessage] = useState("");
-  const [user1, setUser1] = useState({});
-  const [user2, setUser2] = useState({});
-  const [conversation, setConversation] = useState([]);
-  useEffect(() => {
-    setUser1({
-      name: "User1",
-      image: require("./assets/profile1.png"),
-      isOnline: true
-    });
-    setUser2({
-      name: "Username",
-      image: require("./assets/profile2.png"),
-      isOnline: true
-    });
-  }, []);
-  useEffect(() => {
-    setConversation([
-      {
-        id: 1,
-        sender: user1,
-        text: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-        sentTime: "12:00 PM"
-      },
-      {
-        id: 2,
-        sender: user2,
-        text: "lorem ipsum dolor sit amet",
-        sentTime: "01:15 PM"
-      },
-      {
-        id: 3,
-        sender: user2,
-        text: "lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-        sentTime: "01:15 PM"
-      },
-      {
-        id: 4,
-        sender: user1,
-        text: "lorem ipsum dolor sit amet",
-        sentTime: "01:15 PM"
-      },
-      {
-        id: 5,
-        sender: user2,
-        text: "lorem ipsum dolor sit amet",
-        sentTime: "01:15 PM"
-      },
-      {
-        id: 6,
-        sender: user1,
-        text: "lorem ipsum dolor sit amet",
-        sentTime: "01:15 PM"
-      }
-    ]);
-  }, [user1, user2]);
+const AddPaymentMethodScreen = (params) => {
+  const [paymentOption, setPaymentOption] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardExpiry, setCardExpiry] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [name, setName] = useState("");
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerImage}>
-          <Image source={user2.image} style={styles.headerImage} />
-          {(user2.isOnline && (
-            <Image
-              source={require("./assets/onlineIcon.png")}
-              style={styles.activityIconHeader}
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={styles.header}>
+          <View style={styles.paletteContainer}>
+            <View style={styles.unSelected}></View>
+            <View style={styles.unSelected}></View>
+            <View style={styles.selected}></View>
+          </View>
+          <Image
+            source={require("./assets/3Dots.png")}
+            style={styles.threeDots}
+          />
+        </View>
+        <View style={styles.inputs}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputText}>Payment Options</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => setPaymentOption(text)}
+              value={paymentOption}
+              placeholder="Master Card"
+              placeholderTextColor="#9B9B9B"
+              autoCapitalize="none"
+              autoCorrect={false}
             />
-          )) ||
-            null}
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputText}>Card Number</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => setCardNumber(text)}
+              value={cardNumber}
+              placeholder="Enter your Card Number"
+              placeholderTextColor="#9B9B9B"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
+          <View style={styles.halfInputs}>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputText}>Expiration Date</Text>
+              <TextInput
+                style={[styles.input, styles.input1]}
+                onChangeText={(text) => setCardExpiry(text)}
+                value={cardExpiry}
+                placeholder="Enter your last name"
+                placeholderTextColor="#9B9B9B"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputText}>CVV</Text>
+              <TextInput
+                style={[styles.input, styles.input2]}
+                onChangeText={(text) => setCvv(text)}
+                value={cvv}
+                placeholder="CVV"
+                placeholderTextColor="#9B9B9B"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+            </View>
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputText}>Card Holder Name</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => setName(text)}
+              value={name}
+              placeholder="Username"
+              placeholderTextColor="#9B9B9B"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
+          <View style={styles.checkBoxContainer}>
+            <Text style={styles.inputText}>Save this card details</Text>
+            <Image
+              source={require("./assets/checkbox.png")}
+              style={styles.checkBox}
+            />
+          </View>
         </View>
-        <View style={styles.profileName}>
-          <Text style={styles.profileNameText}>{user2.name}</Text>
+        <View style={styles.btnContainer}>
+          <Pressable style={styles.btn}>
+            <Text style={styles.btnText}>Continue</Text>
+            <Image
+              source={require("./assets/arrow.png")}
+              style={styles.arrow}
+            />
+          </Pressable>
         </View>
-        <View style={styles.icons}>
-          <Image source={require("./assets/phoneIcon.png")} />
-          <Image source={require("./assets/videoIcon.png")} />
-        </View>
-      </View>
-      <ScrollView style={styles.body}>
-        {conversation.map((message, index) => (
-          <ConversationElement message={message} key={index} />
-        ))}
       </ScrollView>
-      <View style={styles.footer}>
-        <View style={styles.camera}>
-          <Image
-            source={require("./assets/cameraIcon.png")}
-            style={styles.cameraIcon}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Type a message"
-            onChangeText={(text) => setMessage(text)}
-            value={message}
-            autoCorrect={false}
-            autoCapitalize="none"
-            autoFocus={false}
-          />
-          <Image
-            source={require("./assets/emojiIcon.png")}
-            style={styles.smileyIcon}
-          />
-          <Image
-            source={require("./assets/voiceIcon.png")}
-            style={styles.voiceIcon}
-          />
-        </View>
-        <View style={styles.send}>
-          <Image
-            source={require("./assets/sendIcon.png")}
-            style={styles.sendIcon}
-          />
-        </View>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -134,153 +121,118 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
-    marginHorizontal: 20,
-    backgroundColor: "#F1F1F1",
-    borderRadius: 10,
-    height: 50
+    padding: 20
   },
-  headerImage: {
-    flex: 1,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    resizeMode: "contain",
+  paletteContainer: {
+    flexDirection: "row",
+    backgroundColor: "#F1F1F1",
+    height: 45,
+    width: "100%",
+    borderRadius: 10,
     alignItems: "center",
+    justifyContent: "space-around",
+    paddingHorizontal: 5
+  },
+  selected: {
+    backgroundColor: "#fff",
+    height: "80%",
+    flex: 1,
+    padding: 10,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#e6e6e6",
+    marginHorizontal: 5
+  },
+  unSelected: {
+    height: "80%",
+    flex: 1,
+    marginHorizontal: 5,
+    backgroundColor: "#12D790",
+    padding: 10,
+    paddingHorizontal: 25,
+    borderRadius: 10
+  },
+  threeDots: {
+    alignSelf: "center",
+    marginTop: 20
+  },
+  inputs: {
+    paddingHorizontal: 20,
     justifyContent: "center"
   },
-  profileName: {
-    flex: 2
-  },
-  profileNameText: {
-    fontSize: 16
-  },
-  icons: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around"
-  },
-  activityIconHeader: {
-    width: 10,
-    height: 10,
-    resizeMode: "contain",
-    position: "absolute",
-    right: 20,
-    top: 25
-  },
-  body: {
-    flex: 1,
-    marginTop: 10
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
-    margin: 10
-  },
   inputContainer: {
-    width: "80%"
+    flexDirection: "column",
+    flex: 1,
+    justifyContent: "center"
+  },
+  inputText: {
+    fontSize: 14,
+    marginLeft: 20
   },
   input: {
-    paddingLeft: 15,
+    borderWidth: 1,
+    borderColor: "#e6e6e6",
     borderRadius: 10,
-    backgroundColor: "#F1F1F1"
+    padding: 10,
+    paddingLeft: 20,
+    marginVertical: 10,
+    width: "100%"
   },
-  smileyIcon: {
-    position: "absolute",
-    right: 40,
-    top: 10,
-    opacity: 0.5
-  },
-  voiceIcon: {
-    top: 14,
-    right: 15,
-    position: "absolute",
-    opacity: 0.5
-  }
-});
-export default DirectMessagesScreen;
-
-const ConversationElement = ({ message }) => {
-  const boxAlignment = {
-    flexDirection: message.sender.name === "User1" ? "row" : "row-reverse"
-  };
-  const messageTextContainer = {
-    marginLeft: message.sender.name === "User1" ? 20 : 0,
-    marginRight: message.sender.name === "User1" ? 0 : 20,
-    backgroundColor: message.sender.name === "User1" ? "#FCF1D6" : "#F9D8D9"
-  };
-  return (
-    <View style={[ConversationElementStyles.messageContainer, boxAlignment]}>
-      <View style={ConversationElementStyles.profileImageContainer}>
-        <Image
-          source={message.sender.image}
-          style={ConversationElementStyles.profileImage}
-        />
-        {(message.sender.isOnline && (
-          <Image
-            source={require("./assets/onlineIcon.png")}
-            style={ConversationElementStyles.activityIcon}
-          />
-        )) ||
-          null}
-      </View>
-      <View
-        style={[
-          ConversationElementStyles.messageTextContainer,
-          messageTextContainer
-        ]}
-      >
-        <Text style={ConversationElementStyles.messageText}>
-          {message.text}
-        </Text>
-        <Text style={ConversationElementStyles.messageTime}>
-          {message.sentTime}
-        </Text>
-      </View>
-    </View>
-  );
-};
-
-const ConversationElementStyles = StyleSheet.create({
-  messageContainer: {
+  halfInputs: {
+    justifyContent: "space-between",
     flexDirection: "row",
-    alignItems: "center",
-    margin: 10,
-    justifyContent: "flex-start",
-    marginVertical: 20
+    flex: 1
   },
-  messageTextContainer: {
-    minHeight: 70,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+  input1: {
+    borderRightWidth: 0,
+    borderRightColor: "#fff",
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    flex: 0.8
+  },
+  input2: {
+    borderLeftWidth: 0,
+    borderLeftColor: "#fff",
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+    flex: 0.2
+  },
+  checkBoxContainer: {
+    borderWidth: 1,
+    borderColor: "#e6e6e6",
+    padding: 10,
+    marginVertical: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderRadius: 10
+  },
+  btnContainer: {
+    padding: 30,
+    paddingTop: 10,
+    paddingHorizontal: 40,
+    justifyContent: "center",
+    marginTop: 20
+  },
+  btn: {
+    backgroundColor: "black",
+    height: 50,
+    width: "100%",
+    padding: 10,
+    paddingHorizontal: 25,
     borderRadius: 10,
     justifyContent: "center",
-    alignItems: "flex-start",
-    width: "70%"
+    alignItems: "center",
+    flexDirection: "row"
   },
-  messageText: {
-    lineHeight: 20,
-    fontSize: 14,
-    color: "#000",
-    fontWeight: "bold",
-    textAlign: "left"
+  arrow: {
+    marginLeft: 10,
+    marginTop: 2
   },
-  activityIcon: {
-    position: "absolute",
-    right: 0,
-    top: 40
-  },
-  messageTime: {
-    position: "absolute",
-    right: 5,
-    bottom: -20,
-    color: "grey",
-    fontSize: 12
+  btnText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold"
   }
 });
+export default AddPaymentMethodScreen;
