@@ -1,238 +1,150 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  Text,
-  StyleSheet,
   View,
-  ScrollView,
-  SafeAreaView,
+  ImageBackground,
   Image,
-  TextInput,
-  Pressable
+  Text,
+  TouchableOpacity,
+  ScrollView
 } from "react-native";
+import {
+  NavigationHelpersContext,
+  useNavigationBuilder,
+  TabRouter,
+  TabActions,
+  createNavigatorFactory
+} from "@react-navigation/native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { createStackNavigator } from "@react-navigation/stack";
+import { BACKGROUND_URL, LOGO_URL } from "./screens/constants.js";
+import { slice } from "./auth";
+import { styles } from "./screens/styles";
+import { SignInTab, SignupTab } from "./screens/loginsignup";
+import PasswordReset from "./screens/reset";
 
-const AddPaymentMethodScreen = (params) => {
-  const [paymentOption, setPaymentOption] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [cardExpiry, setCardExpiry] = useState("");
-  const [cvv, setCvv] = useState("");
-  const [name, setName] = useState("");
+const LoginTabBar = ({ navigation, state, descriptors }) => {
+  const currentTab = state.routes[state.index];
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.header}>
-          <View style={styles.paletteContainer}>
-            <View style={styles.unSelected}></View>
-            <View style={styles.unSelected}></View>
-            <View style={styles.selected}></View>
-          </View>
-          <Image
-            source={require("./assets/3Dots.png")}
-            style={styles.threeDots}
-          />
+    <View style={styles.tabStyle}>
+      {state.routes.map((route) => (
+        <View
+          key={route.key}
+          style={route.key === currentTab.key ? styles.activeTabStyle : null}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              const event = navigation.emit({
+                type: "tabPress",
+                target: route.key,
+                canPreventDefault: true
+              });
+              if (!event.defaultPrevented) {
+                navigation.dispatch({
+                  ...TabActions.jumpTo(route.name),
+                  target: state.key
+                });
+              }
+            }}
+          >
+            <Text style={styles.tabStyle}>
+              {descriptors[route.key].options.title || route.name}
+            </Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.inputs}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputText}>Payment Options</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={(text) => setPaymentOption(text)}
-              value={paymentOption}
-              placeholder="Master Card"
-              placeholderTextColor="#9B9B9B"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputText}>Card Number</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={(text) => setCardNumber(text)}
-              value={cardNumber}
-              placeholder="Enter your Card Number"
-              placeholderTextColor="#9B9B9B"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-          </View>
-          <View style={styles.halfInputs}>
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputText}>Expiration Date</Text>
-              <TextInput
-                style={[styles.input, styles.input1]}
-                onChangeText={(text) => setCardExpiry(text)}
-                value={cardExpiry}
-                placeholder="Enter your last name"
-                placeholderTextColor="#9B9B9B"
-                autoCapitalize="none"
-                autoCorrect={false}
-              />
-            </View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputText}>CVV</Text>
-              <TextInput
-                style={[styles.input, styles.input2]}
-                onChangeText={(text) => setCvv(text)}
-                value={cvv}
-                placeholder="CVV"
-                placeholderTextColor="#9B9B9B"
-                autoCapitalize="none"
-                autoCorrect={false}
-              />
-            </View>
-          </View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputText}>Card Holder Name</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={(text) => setName(text)}
-              value={name}
-              placeholder="Username"
-              placeholderTextColor="#9B9B9B"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-          </View>
-          <View style={styles.checkBoxContainer}>
-            <Text style={styles.inputText}>Save this card details</Text>
-            <Image
-              source={require("./assets/checkbox.png")}
-              style={styles.checkBox}
-            />
-          </View>
-        </View>
-        <View style={styles.btnContainer}>
-          <Pressable style={styles.btn}>
-            <Text style={styles.btnText}>Continue</Text>
-            <Image
-              source={require("./assets/arrow.png")}
-              style={styles.arrow}
-            />
-          </Pressable>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      ))}
+    </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff"
-  },
-  header: {
-    padding: 20
-  },
-  paletteContainer: {
-    flexDirection: "row",
-    backgroundColor: "#F1F1F1",
-    height: 45,
-    width: "100%",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "space-around",
-    paddingHorizontal: 5
-  },
-  selected: {
-    backgroundColor: "#fff",
-    height: "80%",
-    flex: 1,
-    padding: 10,
-    paddingHorizontal: 25,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#e6e6e6",
-    marginHorizontal: 5
-  },
-  unSelected: {
-    height: "80%",
-    flex: 1,
-    marginHorizontal: 5,
-    backgroundColor: "#12D790",
-    padding: 10,
-    paddingHorizontal: 25,
-    borderRadius: 10
-  },
-  threeDots: {
-    alignSelf: "center",
-    marginTop: 20
-  },
-  inputs: {
-    paddingHorizontal: 20,
-    justifyContent: "center"
-  },
-  inputContainer: {
-    flexDirection: "column",
-    flex: 1,
-    justifyContent: "center"
-  },
-  inputText: {
-    fontSize: 14,
-    marginLeft: 20
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#e6e6e6",
-    borderRadius: 10,
-    padding: 10,
-    paddingLeft: 20,
-    marginVertical: 10,
-    width: "100%"
-  },
-  halfInputs: {
-    justifyContent: "space-between",
-    flexDirection: "row",
-    flex: 1
-  },
-  input1: {
-    borderRightWidth: 0,
-    borderRightColor: "#fff",
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
-    flex: 0.8
-  },
-  input2: {
-    borderLeftWidth: 0,
-    borderLeftColor: "#fff",
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
-    flex: 0.2
-  },
-  checkBoxContainer: {
-    borderWidth: 1,
-    borderColor: "#e6e6e6",
-    padding: 10,
-    marginVertical: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    borderRadius: 10
-  },
-  btnContainer: {
-    padding: 30,
-    paddingTop: 10,
-    paddingHorizontal: 40,
-    justifyContent: "center",
-    marginTop: 20
-  },
-  btn: {
-    backgroundColor: "black",
-    height: 50,
-    width: "100%",
-    padding: 10,
-    paddingHorizontal: 25,
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row"
-  },
-  arrow: {
-    marginLeft: 10,
-    marginTop: 2
-  },
-  btnText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold"
-  }
-});
-export default AddPaymentMethodScreen;
+function LoginSignupTabs({ initialRouteName, children, screenOptions }) {
+  const { state, navigation, descriptors } = useNavigationBuilder(TabRouter, {
+    children,
+    screenOptions,
+    initialRouteName
+  });
+
+  return (
+    <NavigationHelpersContext.Provider value={navigation}>
+      <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
+        <ScrollView style={[styles.container]}>
+          <View style={{ flex: 1 }}>
+            <View style={styles.imageContainer}>
+              <ImageBackground
+                source={{
+                  uri: BACKGROUND_URL
+                }}
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  resizeMode: "cover",
+                  height: "100%",
+                  width: "100%"
+                }}
+              >
+                <Image
+                  source={{
+                    uri: LOGO_URL
+                  }}
+                  style={{
+                    width: 155,
+                    height: 155,
+                    alignSelf: "center",
+                    resizeMode: "contain"
+                  }}
+                />
+              </ImageBackground>
+            </View>
+          </View>
+          <View style={[styles.cardView]}>
+            <LoginTabBar
+              navigation={navigation}
+              state={state}
+              descriptors={descriptors}
+            />
+            <View style={styles.tabContainerStyle}>
+              {descriptors[state.routes[state.index].key].render()}
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAwareScrollView>
+    </NavigationHelpersContext.Provider>
+  );
+}
+
+const createLoginNavigator = createNavigatorFactory(LoginSignupTabs);
+
+const LoginStack = createLoginNavigator();
+
+const LoginScreen = () => {
+  return (
+    <LoginStack.Navigator>
+      <LoginStack.Screen
+        name="SignIn"
+        component={SignInTab}
+        options={{ title: "Sign In" }}
+      />
+      <LoginStack.Screen
+        name="SignUp"
+        component={SignupTab}
+        options={{ title: "Sign Up" }}
+      />
+    </LoginStack.Navigator>
+  );
+};
+
+const Stack = createStackNavigator();
+
+const LoginSignup = () => {
+  return (
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="PasswordReset" component={PasswordReset} />
+    </Stack.Navigator>
+  );
+};
+
+export default {
+  title: "login",
+  navigator: LoginSignup,
+  slice: slice
+};
