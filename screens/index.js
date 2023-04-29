@@ -1,311 +1,273 @@
 import React, { useState, useEffect } from "react";
 import {
   Text,
-  View,
   StyleSheet,
-  Pressable,
+  View,
   TextInput,
+  FlatList,
   Image,
-  ScrollView
+  Pressable
 } from "react-native";
 
-const Feedback = () => {
-  const [message, setMessage] = useState("");
-  const [reviews, setReviews] = useState([]);
-  const [expanded, setExpanded] = useState(null);
+const ChatListingScreen = params => {
+  const [username, setUsername] = useState("");
+  const [messages, setMessages] = useState([]);
   useEffect(() => {
-    setReviews([
+    setMessages([
       {
         id: 1,
-        username: "Username",
-        email: "username@email.com",
-        image: require("./assets/userImage.png"),
-        subject: "Molestie vestibulum nulla.",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium, commodo lacus, amet nulla faucibus vulputate erat vestibulum. Aliquet consequat nunc sit ullamcorper vel egestas nunc sagittis lectus. Sed ipsum vel in morbi non semper adipiscing nibh nam. Integer sem."
+        name: "Cody Fisher",
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        profileImage: require("./assets/profile.png"),
+        unread: 1,
+        isOnline: true,
+        lastTime: "15 min"
       },
       {
         id: 2,
-        username: "Username",
-        email: "username@email.com",
-        image: require("./assets/userImage.png"),
-        subject: "Molestie vestibulum nulla.",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium, commodo lacus, amet nulla faucibus vulputate erat vestibulum. Aliquet consequat nunc sit ullamcorper vel egestas nunc sagittis lectus. Sed ipsum vel in morbi non semper adipiscing nibh nam. Integer sem."
+        name: "Jenny Wilson",
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        profileImage: require("./assets/profile.png"),
+        unread: 2,
+        isOnline: true,
+        lastTime: "1 hour"
       },
       {
         id: 3,
-        username: "Username",
-        email: "username@email.com",
-        image: require("./assets/userImage.png"),
-        subject: "Molestie vestibulum nulla.",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium, commodo lacus, amet nulla faucibus vulputate erat vestibulum. Aliquet consequat nunc sit ullamcorper vel egestas nunc sagittis lectus. Sed ipsum vel in morbi non semper adipiscing nibh nam. Integer sem."
+        name: "Johnny Watson",
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        profileImage: require("./assets/profile.png"),
+        unread: 0,
+        isOnline: true,
+        lastTime: "2 hours"
       },
       {
         id: 4,
-        username: "Username",
-        email: "username@email.com",
-        image: require("./assets/userImage.png"),
-        subject: "Molestie vestibulum nulla.",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium, commodo lacus, amet nulla faucibus vulputate erat vestibulum. Aliquet consequat nunc sit ullamcorper vel egestas nunc sagittis lectus. Sed ipsum vel in morbi non semper adipiscing nibh nam. Integer sem."
+        name: "Ralph Williams",
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        profileImage: require("./assets/profile.png"),
+        unread: 0,
+        isOnline: false,
+        lastTime: "3 hours"
+      },
+      {
+        id: 5,
+        name: "Guy Hawkins",
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        profileImage: require("./assets/profile.png"),
+        unread: 0,
+        isOnline: false,
+        lastTime: "Mon"
+      },
+      {
+        id: 6,
+        name: "Morris Henery",
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        profileImage: require("./assets/profile.png"),
+        unread: 0,
+        isOnline: false,
+        lastTime: "Tue"
+      },
+      {
+        id: 7,
+        name: "Irma Flores",
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        profileImage: require("./assets/profile.png"),
+        unread: 0,
+        isOnline: false,
+        lastTime: "Wed"
       }
     ]);
   }, []);
-  useEffect(() => {
-    setExpanded(reviews[3]);
-  }, [reviews]);
-  const handleExpand = item => {
-    if (expanded === item) {
-      setExpanded(null);
-    } else {
-      setExpanded(item);
-    }
-  };
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <TabView
-          tabTitles={["All Users"]}
-          selected={0}
-          style={styles.tabView}
-        />
-        <Text style={styles.title}>Feedback</Text>
-        <View style={styles.feedbackContainer}>
-          {reviews.map((review, index) => (
-            <Review
-              key={index}
-              item={review}
-              expanded={review === expanded}
-              onPress={x => {
-                handleExpand(x);
-              }}
-            />
-          ))}
-        </View>
-      </ScrollView>
-      <View style={styles.footer}>
-        <View style={styles.camera}>
-          <Image
-            source={require("./assets/cameraIcon.png")}
-            style={styles.cameraIcon}
-          />
-        </View>
+      <View style={styles.header}>
         <View style={styles.inputContainer}>
+          <Text style={styles.inputText}>Search</Text>
           <TextInput
             style={styles.input}
-            placeholder="Type a message"
-            onChangeText={text => setMessage(text)}
-            value={message}
-            autoCorrect={false}
+            onChangeText={text => setUsername(text)}
+            value={username}
+            placeholder="Search Username"
+            placeholderTextColor="#9B9B9B"
             autoCapitalize="none"
-            autoFocus={false}
+            autoCorrect={false}
           />
           <Image
-            source={require("./assets/emojiIcon.png")}
-            style={styles.smileyIcon}
-          />
-          <Image
-            source={require("./assets/voiceIcon.png")}
-            style={styles.voiceIcon}
+            source={require("./assets/searchIcon.png")}
+            style={styles.searchIcon}
           />
         </View>
-        <View style={styles.send}>
-          <Image
-            source={require("./assets/sendIcon.png")}
-            style={styles.sendIcon}
-          />
-        </View>
+      </View>
+      <TabView tabTitles={["Select all", "Delete selected"]} selected={0} />
+      <FlatList
+        data={messages}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item }) => <ChatListingItem message={item} />}
+      />
+      <View style={styles.newBtn}>
+        <Pressable>
+          <Image source={require("./assets/plusIcon.png")} />
+        </Pressable>
       </View>
     </View>
   );
 };
 
-const Review = ({ item, expanded, onPress }) => {
-  return (
-    <Pressable style={reviewStyles.container} onPress={() => onPress(item)}>
-      <View style={reviewStyles.header}>
-        <Image source={item.image} style={reviewStyles.image} />
-        <View style={reviewStyles.info}>
-          <Text style={reviewStyles.username}>{item.username}</Text>
-          <Text style={reviewStyles.email}>{item.email}</Text>
-        </View>
-        <Image
-          source={require("./assets/menuIcon.png")}
-          style={reviewStyles.menuIcon}
-        />
-      </View>
-      {expanded
-        ? (
-        <View style={reviewStyles.body}>
-          <Text style={reviewStyles.detailsText}>
-            <Text style={reviewStyles.green}>Email: {"\t"}</Text>
-            {"\t"}
-            {item.email}
-          </Text>
-          <Text style={reviewStyles.detailsText}>
-            <Text style={reviewStyles.green}>Subject: </Text>
-            {"\t"}
-            {item.subject}
-          </Text>
-          <Text style={reviewStyles.description}>{item.description}</Text>
-          <Pressable style={reviewStyles.btn}>
-            <Text style={reviewStyles.btnText}>Reply</Text>
-          </Pressable>
-        </View>
-          )
-        : null}
-    </Pressable>
-  );
-};
-
-const reviewStyles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: "#f1f1f1",
-    borderRadius: 10,
-    marginHorizontal: 20,
-    marginBottom: 10
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between"
-  },
-  image: {
-    width: 50,
-    height: 50,
-    borderRadius: 25
-  },
-  menuIcon: {
-    width: 20,
-    height: 20
-  },
-  username: {
-    fontSize: 14
-  },
-  email: {
-    fontSize: 12
-  },
-  info: {
-    flexDirection: "column",
-    flex: 1,
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginHorizontal: 10,
-    height: 40
-  },
-  body: {
-    marginTop: 10,
-    paddingTop: 10,
-    borderTopWidth: 1,
-    borderTopColor: "#ccc"
-  },
-  detailsText: {
-    marginBottom: 5
-  },
-  green: {
-    color: "#12D790"
-  },
-  description: {
-    fontSize: 12,
-    marginTop: 5,
-    textAlign: "justify"
-  },
-  btn: {
-    backgroundColor: "#000",
-    width: 60,
-    height: 30,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-    marginVertical: 5,
-    alignSelf: "flex-end"
-  },
-  btnText: {
-    color: "#fff",
-    fontSize: 12
-  }
-});
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    justifyContent: "flex-start"
   },
-  tabView: {
-    width: 150,
-    marginLeft: 20,
-    marginVertical: 10
-  },
-  title: {
-    marginLeft: 20,
-    marginBottom: 10,
-    marginTop: 20
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
-    margin: 10
+  header: {
+    padding: 20,
+    // flex: 1,
+    height: 100
   },
   inputContainer: {
-    width: "80%"
+    flexDirection: "column",
+    flex: 1,
+    justifyContent: "center",
+    marginHorizontal: 5
+  },
+  inputText: {
+    fontSize: 16,
+    marginLeft: 20,
+    color: "#111112"
   },
   input: {
-    paddingLeft: 15,
+    borderWidth: 1,
+    borderColor: "#e6e6e6",
     borderRadius: 10,
-    backgroundColor: "#F1F1F1",
-    height: 45
+    padding: 10,
+    paddingLeft: 20,
+    marginVertical: 10,
+    width: "100%",
+    height: 50
   },
-  smileyIcon: {
+  searchIcon: {
     position: "absolute",
-    right: 40,
-    top: 10,
-    opacity: 0.5
+    right: 30,
+    top: 35
   },
-  voiceIcon: {
-    top: 12,
-    right: 15,
+  newBtn: {
     position: "absolute",
-    opacity: 0.5
+    backgroundColor: "black",
+    bottom: 30,
+    right: 30,
+    padding: 20,
+    borderRadius: 50,
+    elevation: 10,
+    shadowColor: "grey"
+  }
+});
+export default ChatListingScreen;
+
+const ChatListingItem = ({ message }) => {
+  return (
+    <View style={chatListingItemStyles.chatListingItem}>
+      <Image
+        source={message.profileImage}
+        style={chatListingItemStyles.profileImage}
+      />
+      {(message.isOnline && (
+        <Image
+          source={require("./assets/onlineIcon.png")}
+          style={chatListingItemStyles.activityDot}
+        />
+      )) ||
+        null}
+      <View style={chatListingItemStyles.chatListingItemInfo}>
+        <Text style={chatListingItemStyles.username}>{message.name}</Text>
+        <Text style={chatListingItemStyles.message}>{message.message}</Text>
+      </View>
+      <View style={chatListingItemStyles.chatListingItemTime}>
+        <Text style={chatListingItemStyles.time}>{message.lastTime}</Text>
+        {(message.unread > 0 && (
+          <View style={chatListingItemStyles.unread}>
+            <Text
+              style={{
+                color: "#fff"
+              }}>
+              {message.unread}
+            </Text>
+          </View>
+        )) ||
+          null}
+      </View>
+    </View>
+  );
+};
+
+const chatListingItemStyles = StyleSheet.create({
+  chatListingItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: "#e6e6e6",
+    borderBottomWidth: 1,
+    marginHorizontal: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+    height: 100
+  },
+  profileImage: {
+    width: 70,
+    height: 70
+  },
+  activityDot: {
+    position: "absolute",
+    left: 65,
+    bottom: 20
+  },
+  chatListingItemInfo: {
+    flex: 1,
+    marginHorizontal: 15
+  },
+  username: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#111112"
+  },
+  message: {
+    fontSize: 14,
+    color: "grey"
+  },
+  chatListingItemTime: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: 60
+  },
+  time: {
+    fontSize: 14,
+    color: "grey",
+    fontWeight: "bold"
+  },
+  unread: {
+    fontSize: 14,
+    backgroundColor: "black",
+    width: 30,
+    height: 30,
+    color: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 9
   }
 });
 
-export default Feedback;
-
-const TabView = ({
-  tabTitles,
-  selected,
-  onPress,
-  tabColor,
-  backgroundColor,
-  style
-}) => {
-  const tabColorStyle = {
-    backgroundColor: tabColor || "#fff"
-  };
-  const backgroundColorStyle = {
-    backgroundColor: backgroundColor || "#F1F1F1"
-  };
-  const propStyle = style || {};
+const TabView = ({ tabTitles, selected }) => {
   return (
-    <View
-      style={[tabViewStyles.paletteContainer, backgroundColorStyle, propStyle]}>
+    <View style={tabViewStyles.paletteContainer}>
       {tabTitles.map((title, index) => (
-        <Pressable
-          onPress={() => (onPress ? onPress(index) : null)}
+        <View
           style={
             index === selected
-              ? [tabViewStyles.selected, tabColorStyle]
-              : [tabViewStyles.unSelected, backgroundColorStyle]
+              ? tabViewStyles.selected
+              : tabViewStyles.unSelected
           }
           key={index}>
           <Text>{title}</Text>
-        </Pressable>
+        </View>
       ))}
     </View>
   );
@@ -313,14 +275,15 @@ const TabView = ({
 
 const tabViewStyles = StyleSheet.create({
   paletteContainer: {
-    width: "80%",
+    width: "70%",
     height: 48,
-    backgroundColor: "#E4E4E4",
+    backgroundColor: "#F1F1F1",
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 10,
     padding: 6,
-    marginVertical: 10
+    marginVertical: 10,
+    marginHorizontal: 20
   },
   selected: {
     borderRadius: 10,
@@ -337,7 +300,7 @@ const tabViewStyles = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#E4E4E4",
+    backgroundColor: "#F1F1F1",
     borderRadius: 10
   }
 });
