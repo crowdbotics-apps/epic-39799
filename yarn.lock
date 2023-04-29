@@ -1079,13 +1079,10 @@
 "@modules/splash@file:./modules/splash":
   version "1.0.0"
 
-"@modules/user-profile@file:./modules/user-profile":
+"@modules/splash@file:./modules/splash/":
   version "1.0.0"
-  dependencies:
-    "@react-navigation/native" "^5.9.2"
-    react-native-elements "^2.3.2"
 
-"@modules/user-profile@file:./modules/user-profile/":
+"@modules/user-profile@file:./modules/user-profile":
   version "1.0.0"
   dependencies:
     "@react-navigation/native" "^5.9.2"
