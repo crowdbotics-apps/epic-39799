@@ -139,7 +139,7 @@ const PreviousGames = () => {
           navigation.navigate("Untitled23");
         }}><Text style={styles.AKwYuMol}>Search Screen</Text></Pressable></View>
     <Pressable onPress={() => {
-        navigation.navigate("Untitled34");
+        navigation.navigate("Untitled43");
       }}><Text style={styles.hoobPeFd}>View Characters Screen</Text></Pressable><Pressable onPress={() => {
         navigation.navigate("Untitled41");
       }}><Text style={styles.BqJmiZdm}>Lorem ipsum…</Text></Pressable><Pressable onPress={() => {
