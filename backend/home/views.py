@@ -1,4 +1,4 @@
-from .models import Character, Player
+from .models import Character
 from django.views.generic import CreateView, UpdateView, DetailView, ListView
 from django.shortcuts import render
 
