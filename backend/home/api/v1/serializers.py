@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from home.models import Character
+from home.models import Character,Player
 from django.http import HttpRequest
 from django.utils.translation import ugettext_lazy as _
 from allauth.account import app_settings as allauth_settings
@@ -80,4 +80,10 @@ class CharacterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Character
+        fields = "__all__"
+
+class PlayerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Player
         fields = "__all__"
