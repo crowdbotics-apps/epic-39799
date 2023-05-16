@@ -6,6 +6,12 @@ const epicAPI = axios.create({
 function api_v1_login_create(payload) {
   return epicAPI.post(`/api/v1/login/`, payload.data)
 }
+function api_v1_player_list(payload) {
+  return epicAPI.get(`/api/v1/player/`)
+}
+function api_v1_player_create(payload) {
+  return epicAPI.post(`/api/v1/player/`, payload.data)
+}
 function api_v1_signup_create(payload) {
   return epicAPI.post(`/api/v1/signup/`, payload.data)
 }
@@ -24,11 +30,41 @@ function api_docs_schema_retrieve(payload) {
 function rest_auth_login_create(payload) {
   return epicAPI.post(`/rest-auth/login/`, payload.data)
 }
+function api_v1_character_list(payload) {
+  return epicAPI.get(`/api/v1/character/`)
+}
+function api_v1_character_create(payload) {
+  return epicAPI.post(`/api/v1/character/`, payload.data)
+}
 function rest_auth_logout_retrieve(payload) {
   return epicAPI.get(`/rest-auth/logout/`)
 }
 function rest_auth_logout_create(payload) {
   return epicAPI.post(`/rest-auth/logout/`)
+}
+function api_v1_player_retrieve(payload) {
+  return epicAPI.get(`/api/v1/player/${payload.id}/`)
+}
+function api_v1_player_update(payload) {
+  return epicAPI.put(`/api/v1/player/${payload.id}/`, payload.data)
+}
+function api_v1_player_partial_update(payload) {
+  return epicAPI.patch(`/api/v1/player/${payload.id}/`, payload.data)
+}
+function api_v1_player_destroy(payload) {
+  return epicAPI.delete(`/api/v1/player/${payload.id}/`)
+}
+function api_v1_character_retrieve(payload) {
+  return epicAPI.get(`/api/v1/character/${payload.id}/`)
+}
+function api_v1_character_update(payload) {
+  return epicAPI.put(`/api/v1/character/${payload.id}/`, payload.data)
+}
+function api_v1_character_partial_update(payload) {
+  return epicAPI.patch(`/api/v1/character/${payload.id}/`, payload.data)
+}
+function api_v1_character_destroy(payload) {
+  return epicAPI.delete(`/api/v1/character/${payload.id}/`)
 }
 function rest_auth_registration_create(payload) {
   return epicAPI.post(`/rest-auth/registration/`, payload.data)
@@ -71,14 +107,26 @@ function rest_auth_registration_verify_email_create(payload) {
 }
 export const apiService = {
   api_v1_login_create,
+  api_v1_player_list,
+  api_v1_player_create,
   api_v1_signup_create,
   rest_auth_user_retrieve,
   rest_auth_user_update,
   rest_auth_user_partial_update,
   api_docs_schema_retrieve,
   rest_auth_login_create,
+  api_v1_character_list,
+  api_v1_character_create,
   rest_auth_logout_retrieve,
   rest_auth_logout_create,
+  api_v1_player_retrieve,
+  api_v1_player_update,
+  api_v1_player_partial_update,
+  api_v1_player_destroy,
+  api_v1_character_retrieve,
+  api_v1_character_update,
+  api_v1_character_partial_update,
+  api_v1_character_destroy,
   rest_auth_registration_create,
   rest_auth_password_reset_create,
   rest_auth_password_change_create,
