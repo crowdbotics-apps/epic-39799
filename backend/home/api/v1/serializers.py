@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from home.models import Character,CharacterRule
+from home.models import Board,BoardSpot,Character,CharacterRule,ChessGame,GameInvitation
 from django.http import HttpRequest
 from django.utils.translation import ugettext_lazy as _
 from allauth.account import app_settings as allauth_settings
@@ -86,4 +86,28 @@ class CharacterRuleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CharacterRule
+        fields = "__all__"
+
+class BoardSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Board
+        fields = "__all__"
+
+class ChessGameSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ChessGame
+        fields = "__all__"
+
+class BoardSpotSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BoardSpot
+        fields = "__all__"
+
+class GameInvitationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GameInvitation
         fields = "__all__"

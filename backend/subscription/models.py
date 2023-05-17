@@ -7,8 +7,8 @@ class Subscription(models.Model):
 class SubscriptionPlan(models.Model):
     'Generated Model'
     name = models.CharField(max_length=256,)
-    price = models.DecimalField(max_digits=30,decimal_places=10,null=True,blank=True,)
-    type = models.CharField(max_length=256,null=True,blank=True,)
+    price = models.DecimalField(null=True,blank=True,max_digits=30,decimal_places=10,)
+    type = models.CharField(null=True,blank=True,max_length=256,)
     features = models.ManyToManyField("subscription.SubscriptionFeature",blank=True,related_name="subscriptionplan_features",)
 class SubscriptionFeature(models.Model):
     'Generated Model'

@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from home.models import Character,CharacterRule
-from .serializers import CharacterSerializer,CharacterRuleSerializer
+from home.models import Board,BoardSpot,Character,CharacterRule,ChessGame,GameInvitation
+from .serializers import BoardSerializer,BoardSpotSerializer,CharacterSerializer,CharacterRuleSerializer,ChessGameSerializer,GameInvitationSerializer
 from rest_framework import authentication
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.viewsets import ModelViewSet, ViewSet
@@ -42,3 +42,23 @@ class CharacterRuleViewSet(viewsets.ModelViewSet):
     serializer_class = CharacterRuleSerializer
     authentication_classes = (authentication.SessionAuthentication, authentication.TokenAuthentication)
     queryset = CharacterRule.objects.all()
+
+class BoardViewSet(viewsets.ModelViewSet):
+    serializer_class = BoardSerializer
+    authentication_classes = (authentication.SessionAuthentication, authentication.TokenAuthentication)
+    queryset = Board.objects.all()
+
+class ChessGameViewSet(viewsets.ModelViewSet):
+    serializer_class = ChessGameSerializer
+    authentication_classes = (authentication.SessionAuthentication, authentication.TokenAuthentication)
+    queryset = ChessGame.objects.all()
+
+class BoardSpotViewSet(viewsets.ModelViewSet):
+    serializer_class = BoardSpotSerializer
+    authentication_classes = (authentication.SessionAuthentication, authentication.TokenAuthentication)
+    queryset = BoardSpot.objects.all()
+
+class GameInvitationViewSet(viewsets.ModelViewSet):
+    serializer_class = GameInvitationSerializer
+    authentication_classes = (authentication.SessionAuthentication, authentication.TokenAuthentication)
+    queryset = GameInvitation.objects.all()

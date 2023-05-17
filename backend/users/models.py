@@ -19,15 +19,16 @@ class User(AbstractUser):
     everything that relates with an `User` is represented by this model.
     """
     name = models.CharField(null=True,blank=True,max_length=255,)
-    email = models.EmailField(max_length=254,null=True,blank=True,)
+    email = models.EmailField(null=True,blank=True,max_length=254,)
     friends = models.ManyToManyField("users.User",blank=True,related_name="user_friends",)
     profilePicture = models.URLField(null=True,blank=True,)
     rank = models.IntegerField(null=True,blank=True,)
     level = models.IntegerField(null=True,blank=True,)
     favoriteCharacters = models.ManyToManyField("home.Character",blank=True,related_name="user_favoriteCharacters",)
-    acceptedTerms = models.BooleanField(max_length=256,null=True,blank=True,)
+    acceptedTerms = models.BooleanField(null=True,blank=True,max_length=256,)
     acceptedPrivacyPolicy = models.BooleanField(null=True,blank=True,)
     blocked = models.BooleanField(null=True,blank=True,)
     subscription = models.ManyToManyField("subscription.Subscription",blank=True,related_name="user_subscription",)
+    conversations = models.ManyToManyField("chat.Chat",blank=True,related_name="user_conversations",)
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
