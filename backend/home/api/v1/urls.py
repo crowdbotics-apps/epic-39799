@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .viewsets import BoardViewSet,BoardSpotViewSet,CharacterViewSet,CharacterRuleViewSet,ChessGameViewSet,GameInvitationViewSet
+from .viewsets import BoardViewSet,BoardSpotViewSet,CharacterViewSet,CharacterRuleViewSet,ChessGameViewSet,FriendRequestViewSet,GameInvitationViewSet
 
 from home.api.v1.viewsets import (
     SignupViewSet,
@@ -16,6 +16,7 @@ router.register('board', BoardViewSet )
 router.register('chessgame', ChessGameViewSet )
 router.register('boardspot', BoardSpotViewSet )
 router.register('gameinvitation', GameInvitationViewSet )
+router.register('friendrequest', FriendRequestViewSet )
 
 urlpatterns = [
     path("", include(router.urls)),

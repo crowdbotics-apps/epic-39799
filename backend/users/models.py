@@ -30,5 +30,8 @@ class User(AbstractUser):
     blocked = models.BooleanField(null=True,blank=True,)
     subscription = models.ManyToManyField("subscription.Subscription",blank=True,related_name="user_subscription",)
     conversations = models.ManyToManyField("chat.Chat",blank=True,related_name="user_conversations",)
+    notifications = models.ManyToManyField("notification.Notification",blank=True,related_name="user_notifications",)
+    creditCards = models.ManyToManyField("payments.CreditCard",blank=True,related_name="user_creditCards",)
+    payments = models.ManyToManyField("payments.Payment",blank=True,related_name="user_payments",)
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})

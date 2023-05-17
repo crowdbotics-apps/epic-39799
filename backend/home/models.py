@@ -18,7 +18,7 @@ class ChessGame(models.Model):
     name = models.CharField(max_length=256,)
     startDate = models.DateField(null=True,blank=True,)
     endDate = models.DateField(null=True,blank=True,)
-    status = models.CharField(max_length=256,null=True,blank=True,)
+    status = models.CharField(null=True,blank=True,max_length=256,)
     owner = models.ManyToManyField("users.User",blank=True,related_name="chessgame_owner",)
     players = models.ManyToManyField("users.User",blank=True,related_name="chessgame_players",)
     gameTimer = models.IntegerField(null=True,blank=True,)
@@ -37,3 +37,9 @@ class GameInvitation(models.Model):
     sourceInvitation = models.ManyToManyField("users.User",related_name="gameinvitation_sourceInvitation",)
     invitedPlayer = models.ManyToManyField("users.User",related_name="gameinvitation_invitedPlayer",)
     gameColor = models.IntegerField()
+class FriendRequest(models.Model):
+    'Generated Model'
+    accepted = models.BooleanField()
+    sourceRequest = models.ManyToManyField("users.User",related_name="friendrequest_sourceRequest",)
+    targetRequest = models.ManyToManyField("users.User",related_name="friendrequest_targetRequest",)
+    timestamp = models.DateTimeField()

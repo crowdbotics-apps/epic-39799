@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from home.models import Board,BoardSpot,Character,CharacterRule,ChessGame,GameInvitation
-from .serializers import BoardSerializer,BoardSpotSerializer,CharacterSerializer,CharacterRuleSerializer,ChessGameSerializer,GameInvitationSerializer
+from home.models import Board,BoardSpot,Character,CharacterRule,ChessGame,FriendRequest,GameInvitation
+from .serializers import BoardSerializer,BoardSpotSerializer,CharacterSerializer,CharacterRuleSerializer,ChessGameSerializer,FriendRequestSerializer,GameInvitationSerializer
 from rest_framework import authentication
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.viewsets import ModelViewSet, ViewSet
@@ -62,3 +62,8 @@ class GameInvitationViewSet(viewsets.ModelViewSet):
     serializer_class = GameInvitationSerializer
     authentication_classes = (authentication.SessionAuthentication, authentication.TokenAuthentication)
     queryset = GameInvitation.objects.all()
+
+class FriendRequestViewSet(viewsets.ModelViewSet):
+    serializer_class = FriendRequestSerializer
+    authentication_classes = (authentication.SessionAuthentication, authentication.TokenAuthentication)
+    queryset = FriendRequest.objects.all()

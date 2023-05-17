@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from home.models import Board,BoardSpot,Character,CharacterRule,ChessGame,GameInvitation
+from home.models import Board,BoardSpot,Character,CharacterRule,ChessGame,FriendRequest,GameInvitation
 from django.http import HttpRequest
 from django.utils.translation import ugettext_lazy as _
 from allauth.account import app_settings as allauth_settings
@@ -110,4 +110,10 @@ class GameInvitationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GameInvitation
+        fields = "__all__"
+
+class FriendRequestSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FriendRequest
         fields = "__all__"
