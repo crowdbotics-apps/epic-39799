@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from home.models import Character,Player
-from .serializers import CharacterSerializer,PlayerSerializer
+from home.models import Character,CharacterRule
+from .serializers import CharacterSerializer,CharacterRuleSerializer
 from rest_framework import authentication
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.viewsets import ModelViewSet, ViewSet
@@ -38,7 +38,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
     authentication_classes = (authentication.SessionAuthentication, authentication.TokenAuthentication)
     queryset = Character.objects.all()
 
-class PlayerViewSet(viewsets.ModelViewSet):
-    serializer_class = PlayerSerializer
+class CharacterRuleViewSet(viewsets.ModelViewSet):
+    serializer_class = CharacterRuleSerializer
     authentication_classes = (authentication.SessionAuthentication, authentication.TokenAuthentication)
-    queryset = Player.objects.all()
+    queryset = CharacterRule.objects.all()
