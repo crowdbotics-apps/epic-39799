@@ -1,175 +1,219 @@
+import { useSelector } from "react-redux";
+import { FlatList } from "react-native";
+import { api_v1_chessgame_list } from "../../store/epicAPI/chessGames.slice.js";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { Pressable } from "react-native";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 const PreviousGames = () => {
+  const {
+    entities: ChessGames
+  } = useSelector(state => state.ChessGames);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(api_v1_chessgame_list());
+  }, []);
   const navigation = useNavigation();
   const games = [{
     id: 1,
-    name: 'Game 1',
-    date: 'June 1, 2021',
-    time: '3:00 PM',
+    name: "Game 1",
+    date: "June 1, 2021",
+    time: "3:00 PM",
     players: [{
       id: 1,
-      name: 'Player 1',
-      profilePic: require('../assets/player1.png')
+      name: "Player 1",
+      profilePic: require("../assets/player1.png")
     }, {
       id: 2,
-      name: 'Player 2',
-      profilePic: require('../assets/player2.png')
+      name: "Player 2",
+      profilePic: require("../assets/player2.png")
     }, {
       id: 3,
-      name: 'Player 3',
-      profilePic: require('../assets/player3.png')
+      name: "Player 3",
+      profilePic: require("../assets/player3.png")
     }]
   }, {
     id: 2,
-    name: 'Game 2',
-    date: 'June 2, 2021',
-    time: '5:00 PM',
+    name: "Game 2",
+    date: "June 2, 2021",
+    time: "5:00 PM",
     players: [{
       id: 1,
-      name: 'Player 1',
-      profilePic: require('../assets/player1.png')
+      name: "Player 1",
+      profilePic: require("../assets/player1.png")
     }, {
       id: 2,
-      name: 'Player 2',
-      profilePic: require('../assets/player2.png')
+      name: "Player 2",
+      profilePic: require("../assets/player2.png")
     }, {
       id: 4,
-      name: 'Player 4',
-      profilePic: require('../assets/player4.png')
+      name: "Player 4",
+      profilePic: require("../assets/player4.png")
     }]
   }, {
     id: 3,
-    name: 'Game 3',
-    date: 'June 3, 2021',
-    time: '7:00 PM',
+    name: "Game 3",
+    date: "June 3, 2021",
+    time: "7:00 PM",
     players: [{
       id: 1,
-      name: 'Player 1',
-      profilePic: require('../assets/player1.png')
+      name: "Player 1",
+      profilePic: require("../assets/player1.png")
     }, {
       id: 3,
-      name: 'Player 3',
-      profilePic: require('../assets/player3.png')
+      name: "Player 3",
+      profilePic: require("../assets/player3.png")
     }, {
       id: 4,
-      name: 'Player 4',
-      profilePic: require('../assets/player4.png')
+      name: "Player 4",
+      profilePic: require("../assets/player4.png")
     }]
   }, {
     id: 4,
-    name: 'Game 4',
-    date: 'June 4, 2021',
-    time: '2:00 PM',
+    name: "Game 4",
+    date: "June 4, 2021",
+    time: "2:00 PM",
     players: [{
       id: 2,
-      name: 'Player 2',
-      profilePic: require('../assets/player2.png')
+      name: "Player 2",
+      profilePic: require("../assets/player2.png")
     }, {
       id: 3,
-      name: 'Player 3',
-      profilePic: require('../assets/player3.png')
+      name: "Player 3",
+      profilePic: require("../assets/player3.png")
     }, {
       id: 4,
-      name: 'Player 4',
-      profilePic: require('../assets/player4.png')
+      name: "Player 4",
+      profilePic: require("../assets/player4.png")
     }]
   }, {
     id: 5,
-    name: 'Game 5',
-    date: 'June 5, 2021',
-    time: '4:00 PM',
+    name: "Game 5",
+    date: "June 5, 2021",
+    time: "4:00 PM",
     players: [{
       id: 1,
-      name: 'Player 1',
-      profilePic: require('../assets/player1.png')
+      name: "Player 1",
+      profilePic: require("../assets/player1.png")
     }, {
       id: 2,
-      name: 'Player 2',
-      profilePic: require('../assets/player2.png')
+      name: "Player 2",
+      profilePic: require("../assets/player2.png")
     }, {
       id: 3,
-      name: 'Player 3',
-      profilePic: require('../assets/player3.png')
+      name: "Player 3",
+      profilePic: require("../assets/player3.png")
     }]
   }];
   return <Pressable onPress={() => {
     navigation.navigate("Untitled24");
-  }}><View style={styles.container}>
-      <View style={styles.gamesContainer}>
-        <Pressable onPress={() => {
+  }}>
+      <View style={styles.container}>
+        <View style={styles.gamesContainer}>
+          <Pressable onPress={() => {
           navigation.navigate("Untitled39");
-        }}><Text style={styles.gamesTitle}>My profile </Text></Pressable>
-        {games.map(game => <View key={game.id} style={styles.gameContainer}>
-            <View style={styles.playersContainer}>
-              {game.players.map(player => <Pressable onPress={() => {
+        }}>
+            <Text style={styles.gamesTitle}>My profile </Text>
+          </Pressable>
+          {games.map(game => <View key={game.id} style={styles.gameContainer}>
+              <View style={styles.playersContainer}>
+                {game.players.map(player => <Pressable onPress={() => {
               navigation.navigate("Untitled35");
-            }}><Image key={player.id} source={player.profilePic} style={styles.playerProfilePic} /></Pressable>)}
-            </View>
-            <View style={styles.gameDetailsContainer}>
-              <Text style={styles.gameName}>{game.name}</Text>
-              <Pressable onPress={() => {
+            }}>
+                    <Image key={player.id} source={player.profilePic} style={styles.playerProfilePic} />
+                  </Pressable>)}
+              </View>
+              <View style={styles.gameDetailsContainer}>
+                <Text style={styles.gameName}>{game.name}</Text>
+                <Pressable onPress={() => {
               navigation.navigate("Untitled34");
-            }}><Text style={styles.gameDateTime}>{`${game.date} at ${game.time}`}</Text></Pressable>
-            </View>
-          </View>)}
-      </View>
-      <TouchableOpacity style={styles.shareButton}>
-        <Pressable onPress={() => {
+            }}>
+                  <Text style={styles.gameDateTime}>{`${game.date} at ${game.time}`}</Text>
+                </Pressable>
+              </View>
+            </View>)}
+        </View>
+        <TouchableOpacity style={styles.shareButton}>
+          <Pressable onPress={() => {
           navigation.navigate("Untitled25");
-        }}><Text style={styles.shareButtonText}>Share</Text></Pressable>
-      </TouchableOpacity>
-      <View style={styles.howToPlayContainer}>
-        
-        
-        
-      </View>
-      <TouchableOpacity style={styles.newGameButton}>
-        <Pressable onPress={() => {
+        }}>
+            <Text style={styles.shareButtonText}>Share</Text>
+          </Pressable>
+        </TouchableOpacity>
+        <View style={styles.howToPlayContainer}></View>
+        <TouchableOpacity style={styles.newGameButton}>
+          <Pressable onPress={() => {
           navigation.navigate("Untitled27");
-        }}><Text style={styles.newGameButtonText}>Start a New Game</Text></Pressable>
-      </TouchableOpacity>
-      <View style={styles.bottomNavBar}>
-        {
+        }}>
+            <Text style={styles.newGameButtonText}>Start a New Game</Text>
+          </Pressable>
+        </TouchableOpacity>
+        <View style={styles.bottomNavBar}>
+          {
           /* Bottom nav bar component */
         }
-      <Pressable onPress={() => {
+          <Pressable onPress={() => {
           navigation.navigate("Untitled23");
-        }}><Text style={styles.AKwYuMol}>Search Screen</Text></Pressable></View>
-    <Pressable onPress={() => {
+        }}>
+            <Text style={styles.AKwYuMol}>Search Screen</Text>
+          </Pressable>
+        </View>
+        <Pressable onPress={() => {
         navigation.navigate("Untitled43");
-      }}><Text style={styles.hoobPeFd}>View Characters Screen</Text></Pressable><Pressable onPress={() => {
+      }}>
+          <Text style={styles.hoobPeFd}>View Characters Screen</Text>
+        </Pressable>
+        <Pressable onPress={() => {
         navigation.navigate("Untitled41");
-      }}><Text style={styles.BqJmiZdm}>Lorem ipsum…</Text></Pressable><Pressable onPress={() => {
+      }}>
+          <Text style={styles.BqJmiZdm}>Lorem ipsum…</Text>
+        </Pressable>
+        <Pressable onPress={() => {
         navigation.navigate("Untitled31");
-      }}><Text style={styles.FgYWoxpw}>Chat
-      </Text></Pressable></View></Pressable>;
+      }}>
+          <Text style={styles.FgYWoxpw}>Chat</Text>
+        </Pressable>
+      </View>
+
+      <FlatList style={styles.sQSiXeAN} renderItem={({
+      game
+    }) => <View style={styles.gameDetailsContainer}>
+                <Text style={styles.gameName}>{game.name}</Text>
+                <Pressable onPress={() => {
+        navigation.navigate("Untitled34");
+      }}>
+                  <Text style={styles.gameDateTime}>{`${game.date} at ${game.time}`}</Text>
+                </Pressable>
+              </View>} ItemSeparatorComponent={() => <View style={styles.tkdvnaHl} />} data={ChessGames} keyExtractor={(item, index) => index}></FlatList>
+    </Pressable>;
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     paddingHorizontal: 20,
-    paddingTop: 40
+    paddingTop: 40,
+    width: 358,
+    height: 696
   },
   gamesContainer: {
     marginBottom: 20
   },
   gamesTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10
   },
   gameContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 10
   },
   playersContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginRight: 10
   },
   playerProfilePic: {
@@ -178,55 +222,55 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginRight: -10,
     borderWidth: 2,
-    borderColor: '#fff'
+    borderColor: "#fff"
   },
   gameDetailsContainer: {
     flex: 1
   },
   gameName: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5
   },
   gameDateTime: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
     width: 234,
     height: 16
   },
   shareButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: "#007AFF",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 20
   },
   shareButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   howToPlayContainer: {
     marginBottom: 20
   },
   newGameButton: {
-    backgroundColor: '#34C759',
+    backgroundColor: "#34C759",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 20
   },
   newGameButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   bottomNavBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     width: 90,
     height: 23
   },
@@ -261,6 +305,22 @@ const styles = StyleSheet.create({
     lineHeight: 14,
     fontSize: 14,
     borderRadius: 0
+  },
+  sQSiXeAN: {
+    position: "absolute",
+    width: 311,
+    height: 156,
+    left: 28,
+    top: 281
+  },
+  wfDSyZMN: {
+    width: "100%",
+    height: 60,
+    backgroundColor: "#FFFFFF"
+  },
+  tkdvnaHl: {
+    backgroundColor: "#000000",
+    height: 1
   }
 });
 export default PreviousGames;
