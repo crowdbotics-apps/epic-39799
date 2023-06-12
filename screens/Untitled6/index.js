@@ -10,7 +10,7 @@ const SocialSignUpScreen = () => {
         <Text style={styles.title}>Sign up with</Text>
       </View>
       <Pressable onPress={() => {
-      navigation.navigate("Untitled21");
+      navigation.navigate("ScreenAI39");
     }}><View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button}>
           <Image source={require('../assets/google.png')} style={styles.buttonIcon} />

@@ -37,7 +37,7 @@ const SocialLoginScreen = () => {
       </View>
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Pressable onPress={() => {
-        navigation.navigate("Untitled21");
+        navigation.navigate("ScreenAI39");
       }}><Text style={styles.loginButtonText}>Login</Text></Pressable>
       </TouchableOpacity>
       <View style={styles.socialLoginContainer}>

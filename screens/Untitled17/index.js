@@ -7,7 +7,7 @@ const SubscriptionScreen = () => {
   return <View style={styles.container}>
       <Image source={require('../assets/subscription.png')} style={styles.image} />
       <Pressable onPress={() => {
-      navigation.navigate("Untitled21");
+      navigation.navigate("ScreenAI39");
     }}><Text style={styles.title}>Subscribe to Premium</Text></Pressable>
       <Text style={styles.description}>
         Get access to exclusive content and features by subscribing to our

@@ -1,3 +1,6 @@
+import { useSelector } from "react-redux";
+import { api_v1_boardspot_list } from "../../store/epicAPI/boardSpots.slice.js";
+import { useDispatch } from "react-redux";
 import { StyleSheet } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import { OptionsContext, GlobalOptionsContext } from "@options";
@@ -7,6 +10,10 @@ import HTML from "react-native-render-html";
 const TermsAndConditions = ({
   navigation
 }) => {
+  const {
+    entities: console
+  } = useSelector(state => state.console);
+  const dispatch = useDispatch();
   const options = useContext(OptionsContext);
   const globalOptions = useContext(GlobalOptionsContext);
   const contentWidth = useWindowDimensions().width;
@@ -17,6 +24,7 @@ const TermsAndConditions = ({
       console.log(err);
       return setHtmlContent("<h1>Error Loading Terms and Conditions</h1>");
     });
+    dispatch(api_v1_boardspot_list());
   });
   return <View style={_styles.YiWxGlAB}>
       <View style={options.styles.heading}>
